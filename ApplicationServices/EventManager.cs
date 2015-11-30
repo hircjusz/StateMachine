@@ -27,6 +27,42 @@ namespace ApplicationServices
             EventList= new Dictionary<string, object>();
         }
 
+        public void RegisterEvent(string eventName,object source)
+        {
+            EventList.Add(eventName,source);
+        }
+
+        public bool SubscribeEvent(string eventName,string handlerMethodName,object sink)
+        {
+            try
+            {
+                var evt = EventList[eventName];
+
+                var eventInfo = evt.GetType().GetEvent(eventName);
+                var methodInfo = sink.GetType().GetMethod(handlerMethodName);
+
+                var handler = Delegate.CreateDelegate(eventInfo.EventHandlerType, sink, methodInfo);
+                eventInfo.AddEventHandler(evt, handler);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                var message = "Exception while subscribing to handler. Event " + eventName;
+                RaiseEventManagerEvent("EventManagerSystemEvent",message,StateMachineEventType.System);
+                return false;
+            }
+        }
+
+        private void RaiseEventManagerEvent(string eventName,string eventInfo, StateMachineEventType eventType)
+        {
+            var newArgs=new StateMachineEventArgs(eventName,eventInfo,String.Empty, String.Empty, eventType);
+            if (EventManagerEvent != null)
+            {
+                EventManagerEvent(this, newArgs);
+            }
+        }
+
 
 
     }
