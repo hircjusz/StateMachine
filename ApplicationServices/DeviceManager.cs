@@ -21,7 +21,7 @@ namespace ApplicationServices
             RaiseDeviceManagerEvent("Added device",name);
         }
 
-        private void RaiseDeviceManagerEvent(string p, string name)
+        public void RaiseDeviceManagerEvent(string p, string name)
         {
             var newDMArgs= new StateMachineEventArgs(name,"Device Manager Event"+ name,"Device Manager","",StateMachineEventType.System);
             if (DeviceManagerEvent != null)
@@ -30,7 +30,7 @@ namespace ApplicationServices
             }
         }
 
-        private void RaiseDeviceManagerNotification(string command, string info,string source)
+        public void RaiseDeviceManagerNotification(string command, string info,string source)
         {
             var newDMArgs = new StateMachineEventArgs(command, "Device Manager Event" + info, source, "", StateMachineEventType.Notification);
             if (DeviceManagerNotification != null)
@@ -107,5 +107,7 @@ namespace ApplicationServices
 
 
 
+
+        public static DeviceManager Instance { get; set; }
     }
 }

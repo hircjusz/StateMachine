@@ -39,8 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceReceiver.cs" />
     <Compile Include="DeviceBell.cs" />
+    <Compile Include="DevicePhoneLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TelephoneDeviceConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ApplicationServices\ApplicationServices.csproj">
