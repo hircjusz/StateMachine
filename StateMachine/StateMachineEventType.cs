@@ -8,6 +8,7 @@ namespace StateMachine
     public  enum StateMachineEventType
     {
         Command,
-        System
+        System,
+        Notification
     }
 }
